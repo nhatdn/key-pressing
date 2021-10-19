@@ -1,0 +1,33 @@
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+.container {
+    display: flex;
+    justify-content: center;
+    margin: 0px 10px;
+    position: relative;
+}
+span {
+    display: inline-block;
+    font-size: 30px;
+    font-family: 'Franklin Gothic Medium', 'Arial Narrow', Arial, sans-serif;
+    position: absolute;
+    top: -30px;
+}
+.my-key, .my-point {
+    position: fixed;
+    bottom: 0px;
+    background: rgb(191, 211, 240);
+    height: 40px;
+    width: 100%;
+    line-height: 40px;
+}
+.container-footer {
+    display: flex;
+    flex-basis: 50%;
+}
+.my-point {
+    left: 50%;
+}
