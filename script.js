@@ -42,14 +42,12 @@ if (window.confirm("Lưu ý: Bật caplock trước khi chơi và tắt vietkey"
     let point = 0;
 
     document.addEventListener('keydown',(e)=>{
-        console.log(e.key);
         if(e.key.toString() != 'Escape') {
             if(e.key.toString() == 'Enter'){
                 clearInterval(clear);
             }
             myCallBack(()=>{
                 document.querySelector('.my-key').innerText = `Your key press: ${e.key}`;
-                
                 myCallBack(()=>{
                     move = -30;
                     document.querySelector('.my-point').innerText = `Your point: ${++point}`;
@@ -58,7 +56,6 @@ if (window.confirm("Lưu ý: Bật caplock trước khi chơi và tắt vietkey"
                         document.getElementsByTagName('span')[0].innerText = keys.slice(rand, rand + 1);
                     } else {
                         clearInterval(clear);
-                        console.log("thua 🥰🥰🥰");
                         document.getElementsByTagName('span')[0].style.top = `-30px`;
                         if(e.key.toString() == 'Enter') {
                             alert("Chơi lại nheee 🥰🥰🥰");
