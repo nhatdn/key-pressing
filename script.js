@@ -1,4 +1,4 @@
-console.log("%cNhân ngày 20/10, Em chúc Duy luôn luôn vui vẻ, chăm ngoan, học giỏi, nghe lời bố mẹ, nghe lời chị Ánh :>, luôn luôn xinh đẹp, luôn luôn hạnh phúc, thành công và đạt được những điều mà Duy mong muốn. Bữa trước em thấy duy bảo là duy gõ phím chậm a, hì... Nên em làm cái này để duy chơi cho vui, :> xem như là món quà em tặng duy nhân ngày này nhe <3","color:pink; font-size: 15px");
+//console.log("%cNhân ngày 20/10, Em chúc Duy luôn luôn vui vẻ, chăm ngoan, học giỏi, nghe lời bố mẹ, nghe lời chị Ánh :>, luôn luôn xinh đẹp, luôn luôn hạnh phúc, thành công và đạt được những điều mà Duy mong muốn. Bữa trước em thấy duy bảo là duy gõ phím chậm a, hì... Nên em làm cái này để duy chơi cho vui, :> xem như là món quà em tặng duy nhân ngày này nhe <3","color:pink; font-size: 15px");
 
 console.log("=======================================");
 console.log("Lưu ý: Bật caplock trước khi chơi và tắt vietkey")
