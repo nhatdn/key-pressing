@@ -1,77 +1,91 @@
-//console.log("%cNhân ngày 20/10, Em chúc Duy luôn luôn vui vẻ, chăm ngoan, học giỏi, nghe lời bố mẹ, nghe lời chị Ánh :>, luôn luôn xinh đẹp, luôn luôn hạnh phúc, thành công và đạt được những điều mà Duy mong muốn. Bữa trước em thấy duy bảo là duy gõ phím chậm a, hì... Nên em làm cái này để duy chơi cho vui, :> xem như là món quà em tặng duy nhân ngày này nhe <3","color:pink; font-size: 15px");
-
 console.log("=======================================");
 console.log("Lưu ý: Bật caplock trước khi chơi và tắt vietkey")
 console.log("=======================================");
 console.log("Shift + F5: Reload trang, chơi lại từ đầu, với tốc độ chậm nhất.")
 console.log("Enter: Tiếp tục chơi nếu báo thua")
-console.log("ESC: Nếu đang chơi thì sẽ tăng tóc, nếu thua thì sẽ chơi lại ở tốc độ hiện tại")
+console.log("ESC: Nếu đang chơi thì sẽ tăng tốc")
 console.log("=======================================");
 
 if (window.confirm("Lưu ý: Bật caplock trước khi chơi và tắt vietkey"))
 {
-    let move = -30;
-    let height = window.innerHeight;
-    let keys = '123456789QWERTYUIOPASDFGHJKLZXCVBNM';
-    let rand = Math.random() * keys.length;
-    document.getElementsByTagName('span')[0].innerText = keys.slice(rand, rand + 1);
-
-    var clear;
-
-    function Start(){
-        clear = setInterval(()=>{
-            document.getElementsByTagName('span')[0].style.top = `${move+=2}px`;
-            if(move == height - 34) {
-                move = -30;
-                clearInterval(clear);
-                let rand = Math.random() * keys.length;
-                document.getElementsByTagName('span')[0].innerText = keys.slice(rand, rand + 1);
-                alert("Thua òi 🥰🥰🥰");
+    const SPAN_KEY = document.getElementById('robot-key');
+    const MY_KEY = document.querySelector('.my-key');
+    const MY_POINT = document.querySelector('.my-point');
+    const KEYS = '123456789QWERTYUIOPASDFGHJKLZXCVBNM';
+    const INIT_MOVE = -100;
+    const HEIGHT = window.innerHeight;
+    const EVENT = 'keydown';
+    const ESC = 'Escape';
+    let point = 0;
+    let level = 0;
+    let move = INIT_MOVE;
+    let clearSpeech = [];
+    let rand = Math.random() * KEYS.length;
+    SPAN_KEY.innerText = KEYS.slice(rand, rand + 1);
+    
+    let maxSpeed = false;
+    function Speed(){
+        let clear = setInterval(()=>{
+            SPAN_KEY.style.top = `${move+=5}px`;
+            if(move > HEIGHT - 20) {
+                move = INIT_MOVE;
+                let rand = Math.random() * KEYS.length;
+                point = 0;
+                maxSpeed = true;
+                SPAN_KEY.innerText = KEYS.slice(rand, rand + 1);
+                handleClearSpeed();
+                alert("Thua òi 🥰🥰🥰"); 
+                MY_POINT.innerText = `Your point: ${0}`;
+                alert("Chơi lại nheee 🥰🥰🥰");
+                Speed();
             }
         },10)
+        clearSpeech.push(clear);
+        if(clearSpeech.length == 1) {
+            level = 1;
+        } else {
+            level = (clearSpeech.length - 1) * 2;
+        }
     }
 
-    Start();
+    Speed();
 
     function myCallBack(callback){
         setTimeout(()=>{
             callback();
         },0);
     }
+    const handleClearSpeed = () => {
+        console.log(clearSpeech);
+        clearSpeech.forEach(clearInterval);
+        console.log(clearSpeech);
+        clearSpeech = [];
+        SPAN_KEY.style.top = `${INIT_MOVE}px`;
+    }
 
-    let point = 0;
-
-    document.addEventListener('keydown',(e)=>{
-        if(e.key.toString() != 'Escape') {
-            if(e.key.toString() == 'Enter'){
-                clearInterval(clear);
-            }
-            myCallBack(()=>{
-                document.querySelector('.my-key').innerText = `Your key press: ${e.key}`;
-                myCallBack(()=>{
-                    move = -30;
-                    document.querySelector('.my-point').innerText = `Your point: ${++point}`;
-                    if(document.getElementsByTagName('span')[0].innerText == e.key) {
-                        let rand = Math.random() * keys.length;
-                        document.getElementsByTagName('span')[0].innerText = keys.slice(rand, rand + 1);
-                    } else {
-                        clearInterval(clear);
-                        document.getElementsByTagName('span')[0].style.top = `-30px`;
-                        if(e.key.toString() == 'Enter') {
-                            alert("Chơi lại nheee 🥰🥰🥰");
-                            point = 0;
-                            Start();
-                        } else {
-                            alert("Thua òi 🥰🥰🥰");
-                        }
-                    }
-                })
-            })
+    document.addEventListener( EVENT,(e)=>{
+        if(e.key.toString() == ESC) {
+            Speed();
         } else {
-            point = 0;
-            Start();
+            MY_KEY.innerText = `Your key : ${e.key}`;
+            if(SPAN_KEY.innerText == e.key) {
+                point += level;
+                MY_POINT.innerText = `Your point: ${point}`;
+                move = INIT_MOVE;
+                let rand = Math.random() * KEYS.length;
+                SPAN_KEY.innerText = KEYS.slice(rand, rand + 1);
+            } else {
+                handleClearSpeed();
+                alert("Thua òi 🥰🥰🥰"); 
+                maxSpeed = false;
+                MY_POINT.innerText = `Your point: ${0}`;
+                console.log(clearSpeech);
+                alert("Chơi lại nheee 🥰🥰🥰");
+                move = INIT_MOVE;
+                Speed();
+            }
         }
     });
 } else {
-    console.error("Tui bảo tắt vietkey với caplock mới chơi được mà... hic :>")
+    console.error("Tui bảo tắt vietkey với caplock mới chơi được mà... hic :>");
 }
